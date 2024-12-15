@@ -13,10 +13,10 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 app = Flask(__name__)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = "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"
+os.environ["LANGCHAIN_API_KEY"] = ""
 
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = ""
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 # Load initial documents
