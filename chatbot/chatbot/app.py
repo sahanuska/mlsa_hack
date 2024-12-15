@@ -11,16 +11,16 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-
+app = Flask(__name__)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = "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"
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDpD2Ltm4fQFDrLvf1nAMBazrKoKHGG5qI"
-app = Flask(__name__)
+
+
 GROQ_API_KEY = "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"
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 # Load initial documents
-loader = TextLoader(r"C:\Users\KIIT\Desktop\chatbot\chatbot\map_description.txt")
+loader = TextLoader(r"enter your requirment file path")
 documents = loader.load()
 
 # Initialize embeddings and vector store
