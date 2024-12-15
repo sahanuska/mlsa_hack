@@ -76,7 +76,10 @@ def chat():
     user_input = request.json.get("message")
     
     # Invoke the model and get a response
-    output = chain.invoke({"question": user_input})
+    prompt = "You are a helpful bot in apocalypse help user to navigate safaly dont put them in High-Density Areas always provide route to safe zone. user input= "  
+    full_input = prompt + user_input
+    # Invoke the model and get a response
+    output = chain.invoke({"question": full_input})
     bot_response = output.get("answer")
 
     return jsonify({"response": bot_response})
