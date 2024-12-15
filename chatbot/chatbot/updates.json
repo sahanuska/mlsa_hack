@@ -1,0 +1,186 @@
+{
+    "nodes": [
+        {
+            "id": "A",
+            "name": "City Hall",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": true
+            }
+        },
+        {
+            "id": "B",
+            "name": "Central Hospital",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": true
+            }
+        },
+        {
+            "id": "C",
+            "name": "Fire Station",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": true
+            }
+        },
+        {
+            "id": "D",
+            "name": "Subway Entrance",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "E",
+            "name": "Apartment Complex",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "F",
+            "name": "School Gymnasium",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": true,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "G",
+            "name": "Library Basement",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": true,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "H",
+            "name": "Major Intersection 1",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": true
+            }
+        },
+        {
+            "id": "I",
+            "name": "Major Intersection 2",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": true
+            }
+        },
+        {
+            "id": "J",
+            "name": "Park Area",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "K",
+            "name": "Campsite",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "L",
+            "name": "Cliffside Lookout",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "M",
+            "name": "Small Residential Block",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "N",
+            "name": "Riverside Path",
+            "type": "location",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        },
+        {
+            "id": "O",
+            "name": "Collapsed Bridge",
+            "type": "obstacle",
+            "attributes": {
+                "isSafeZone": false,
+                "isHighDensity": false
+            }
+        }
+    ],
+    "edges": [
+        {
+            "from": "A",
+            "to": "B",
+            "name": "Main Street"
+        },
+        {
+            "from": "B",
+            "to": "C",
+            "name": "First Avenue"
+        },
+        {
+            "from": "C",
+            "to": "D",
+            "name": "Broadway Street"
+        },
+        {
+            "from": "A",
+            "to": "H",
+            "name": "Secondary Road"
+        },
+        {
+            "from": "H",
+            "to": "I",
+            "name": "Connector Road"
+        },
+        {
+            "from": "H",
+            "to": "F",
+            "name": "Pathway to Gymnasium"
+        },
+        {
+            "from": "I",
+            "to": "G",
+            "name": "Pathway to Library"
+        },
+        {
+            "from": "D",
+            "to": "E",
+            "name": "Residential Lane"
+        },
+        {
+            "from": "B",
+            "to": "J",
+            "name": "Park Road"
+        }
+    ]
+}
