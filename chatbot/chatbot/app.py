@@ -12,15 +12,13 @@ from langchain_groq import ChatGroq
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 app = Flask(__name__)
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = ""
 
 
 GROQ_API_KEY = ""
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 # Load initial documents
-loader = TextLoader(r"enter your requirment file path")
+loader = TextLoader(r"C:\Users\KIIT\Documents\GitHub\mlsa_hack\chatbot\chatbot\map_description.txt")
 documents = loader.load()
 
 # Initialize embeddings and vector store
