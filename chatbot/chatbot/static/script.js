@@ -1,27 +1,46 @@
 function sendMessage() {
-    const userInput = document.getElementById("user-input").value;
-    if (!userInput.trim()) return;
+    const chatWindow = document.getElementById('chatWindow');
+    const inputField = document.getElementById('inputField');
+    const userMessage = inputField.value.trim();
 
-    // Display user message
-    const chatBox = document.getElementById("chat-box");
-    chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+    if (userMessage.length > 0) {
+        // Display user's message
+        const userMessageElement = document.createElement('div');
+        userMessageElement.className = 'message user-message';
+        userMessageElement.textContent = userMessage;
+        chatWindow.appendChild(userMessageElement);
 
-    // Clear input
-    document.getElementById("user-input").value = "";
+        // Clear and focus the input field
+        inputField.value = '';
+        inputField.focus();
 
-    // Send request to server
-    fetch("/chat", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message: userInput })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Display bot response
-        chatBox.innerHTML += `<p><strong>BOT:</strong> ${data.response}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;  // Auto scroll to bottom
-    })
-    .catch(error => console.error("Error:", error));
+        // Simulate bot response
+        const botMessageElement = document.createElement('div');
+        botMessageElement.className = 'message bot-message';
+        botMessageElement.textContent = 'Processing your request...';
+        chatWindow.appendChild(botMessageElement);
+
+        // Auto-scroll to the latest message
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        // Send user message to the server
+        fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the bot message with the response
+            botMessageElement.textContent = data.response;
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to the latest message
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            botMessageElement.textContent = 'Sorry, I couldn\'t process your request.';
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to the latest message
+        });
+    }
 }
