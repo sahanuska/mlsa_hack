@@ -1,15 +1,20 @@
-function sendMessage() {
-    const userInput = document.getElementById("user-input").value;
-    if (!userInput.trim()) return;
-
-    // Display user message
+function appendMessage(sender, message) {
     const chatBox = document.getElementById("chat-box");
-    chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+    const messageElement = document.createElement("p");
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-    // Clear input
+
+function sendMessage() {
+    const userInput = document.getElementById("user-input").value.trim();
+    if (!userInput) return;
+    appendMessage("You", userInput);
     document.getElementById("user-input").value = "";
 
-    // Send request to server
+    appendMessage("BOT", "Typing...");
+
     fetch("/chat", {
         method: "POST",
         headers: {
@@ -17,11 +22,19 @@ function sendMessage() {
         },
         body: JSON.stringify({ message: userInput })
     })
-    .then(response => response.json())
-    .then(data => {
-        // Display bot response
-        chatBox.innerHTML += `<p><strong>BOT:</strong> ${data.response}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;  // Auto scroll to bottom
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
     })
-    .catch(error => console.error("Error:", error));
+    .then(data => {
+        const chatBox = document.getElementById("chat-box");
+        chatBox.lastChild.remove(); 
+        appendMessage("BOT", data.response);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        appendMessage("BOT", "Sorry, there was an error processing your request.");
+    });
 }
