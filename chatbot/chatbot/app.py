@@ -13,10 +13,10 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 app = Flask(__name__)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = "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"
+os.environ["LANGCHAIN_API_KEY"] = ""
 
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = ""
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 # Load initial documents
@@ -30,13 +30,15 @@ text_splitter = CharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=200
 )
+
 doc_chunks = text_splitter.split_documents(documents)
 vectorstore = FAISS.from_documents(doc_chunks, embeddings)
+
 
 # Initialize LLM and memory
 llm = ChatGroq(
     model="llama-3.1-70b-versatile",
-    temperature=0.5
+    temperature=0.9
 )
 retriever = vectorstore.as_retriever()
 memory = ConversationBufferMemory(
@@ -74,21 +76,39 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_input = request.json.get("message")
-    
-    # Invoke the model and get a response
     prompt = "You are a helpful bot in apocalypse help user to navigate safaly dont put them in High-Density Areas always provide route to safe zone. user input= "  
     full_input = prompt + user_input
+   
     # Invoke the model and get a response
     output = chain.invoke({"question": full_input})
     bot_response = output.get("answer")
 
     return jsonify({"response": bot_response})
 
-@app.route('/update', methods=['POST'])
+@app.route("/update", methods=['POST'])
 def update():
-    """Endpoint to manually trigger the update from update.json."""
-    load_json_data()
-    return redirect('/')
+        url = "https://api.mlsakiit.com/survivors"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            json_data = response.json()  # Step 2: Parse the JSON data
+        else:
+            return jsonify({"error": "Failed to fetch data"}), response.status_code
+
+        
+        documents = []
+        for item in json_data:
+            # Create a document string from the survivor data
+            document_content = f"Survivor ID: {item['survivor_id']}, District: {item['district']}, Latitude: {item['lat']}, Longitude: {item['lon']}"
+            # Create a Document object
+            documents.append(Document(page_content=document_content))
+
+        # Split documents into chunks
+        doc_chunks = text_splitter.split_documents(documents)
+
+        # Step 4: Update the vector store
+        vectorstore.add_documents(doc_chunks)
+        return "updated"
 
 if __name__ == '__main__':
     app.run(debug=True)
