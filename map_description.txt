@@ -1,0 +1,47 @@
+Map Layout
+
+Nodes (Locations)
+- Node A: City Hall
+- Node B: Central Hospital
+- Node C: Fire Station
+- Node D: Subway Entrance
+- Node E: Apartment Complex
+- Node F: School Gymnasium (Safe Zone)
+- Node G: Library Basement (Safe Zone)
+- Node H: Major Intersection 1
+- Node I: Major Intersection 2
+- Node J: Park Area
+- Node K: Campsite
+- Node L: Cliffside Lookout
+- Node M: Small Residential Block
+- Node N: Riverside Path
+- Node O: Collapsed Bridge (Obstacle)
+
+Edges (Connections Between Nodes)
+- A ↔ B: Main Street
+- B ↔ C: First Avenue
+- C ↔ D: Broadway Street
+- A ↔ H: Secondary Road
+- H ↔ I: Connector Road
+- H ↔ F: Pathway to Gymnasium
+- I ↔ G: Pathway to Library
+- D ↔ E: Residential Lane
+- B ↔ J: Road to Park Area
+- J ↔ K: Trail to Campsite
+- K ↔ L: Path to Cliffside Lookout
+- E ↔ M: Lane to Residential Block
+- M ↔ N: Riverside Pathway
+- F ↔ G: Evacuation Route
+- E ↔ O: Collapsed Bridge (Removed Connection)
+
+Special Attributes
+
+Safe Zones
+- Node F: School Gymnasium
+- Node G: Library Basement
+
+Obstacle
+- Node O: Collapsed Bridge (Connection Removed)
+
+High-Density Areas
+- Nodes A (City Hall), B (Central Hospital), C (Fire Station), and surrounding intersections.
