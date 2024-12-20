@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-GROQ_API_KEY = "2345678"
+GROQ_API_KEY = "YOUR API KEY"
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 # Load initial documents
@@ -117,7 +117,7 @@ def register():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_input = request.json.get("message")
-    prompt = "You are a helpful bot in apocalypse help user to navigate safaly dont put them in High-Density Areas always provide route to safe zone. user input= "  
+    prompt = "You are a helpful bot in apocalypse your aim is to help user to navigate safaly dont put them in High-Density Areas always provide route to safe zone. user input= "  
     full_input = prompt + user_input
    
     # Invoke the model and get a response
@@ -126,30 +126,7 @@ def chat():
 
     return jsonify({"response": bot_response})
 
-@app.route("/update", methods=['POST'])
-def update():
-        url = "https://api.mlsakiit.com/survivors"
-        response = request.get(url)
 
-        if response.status_code == 200:
-            json_data = response.json()  # Step 2: Parse the JSON data
-        else:
-            return jsonify({"error": "Failed to fetch data"}), response.status_code
-
-        
-        documents = []
-        for item in json_data:
-            # Create a document string from the survivor data
-            document_content = f"Survivor ID: {item['survivor_id']}, District: {item['district']}, Latitude: {item['lat']}, Longitude: {item['lon']}"
-            # Create a Document object
-            documents.append(Document(page_content=document_content))
-
-        # Split documents into chunks
-        doc_chunks = text_splitter.split_documents(documents)
-
-        # Step 4: Update the vector store
-        vectorstore.add_documents(doc_chunks)
-        return "updated"
 
 if __name__ == '__main__':
     app.run(debug=True)
